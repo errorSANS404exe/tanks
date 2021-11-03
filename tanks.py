@@ -57,11 +57,35 @@ def move_y(tank_id, distance_y):
     actions.move(tank_id, 0, distance_y)
 
 
+def shot(tank_id, distance):
+    angle = sprite.get_angle(tank_id)
+    y = 0
+    d = 0
+    n = distance / 300 * 1000
+    if angle == 90:
+        d = 30
+    if angle == -90:
+        d = -30
+    if angle == 180:
+        y = 31
+    if angle == 0:
+        y = -31
+    bullet = sprite.add("battle_city_items", sprite.get_x(tank_id) + d, sprite.get_y(tank_id) + y, "bullet")
+    sprite.set_angle(bullet, angle)
+    actions.move_at_angle_dir(tank_id, -10, 100)
+    actions.move_at_angle_dir(bullet, distance, n)
+    sprite.remove(bullet)
+
+
 spawn(tank1)
 spawn(tank2)
 move_x(tank1, 100)
-move_x(tank2, -150)
-move_y(tank1, 100)
-move_y(tank2, -200)
+move_x(tank2, -100)
+move_y(tank1, 50)
+move_y(tank2, -50)
+shot(tank1, 70)
+shot(tank2, 130)
 explosion(tank1)
+spawn(tank1)
+shot(tank1, 130)
 explosion(tank2)
