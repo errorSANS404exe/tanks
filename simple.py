@@ -22,7 +22,7 @@ def move5(keys):
 
 @wrap.on_mouse_move()
 def mouse_move(pos_x, pos_y, mouse_buttons):
-    sprite.move_to(phantom, pos_x, pos_y)
+    sprite.move_to(phantom, pos_y, pos_x)
     if wrap.BUTTON_LEFT in mouse_buttons:
         sprite.show(phantom)
     else:
@@ -37,3 +37,10 @@ def mouse_down():
 @wrap.on_mouse_up(wrap.BUTTON_LEFT)
 def mouse_up():
     sprite.hide(phantom)
+
+
+@wrap.always(50)
+def move_pacman(pos_x, pos_y):
+    if sprite.is_visible(phantom):
+        sprite.move_at_angle(id, sprite.get_angle(id), 25)
+        sprite.set_angle_to_point(id, sprite.get_x(phantom), sprite.get_y(phantom))
